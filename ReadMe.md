@@ -77,7 +77,8 @@ Meanwhile, the finished number of samples and
 different information is written into the console to give the user a visual feedback.
 
 To execute the unit-tests, just go into the folder `tests`
-and execute the file `run_tests.R`. Do **not** set the folder as the working directory!
+and execute the file `run_tests.R`. Do **not** set the folder as the working directory
+and do not forget installing `testthat` and the other for visualizations necessary [libraries](#installation)!
 	
 ## Interface
 The interface allows you executing each 
