@@ -1,4 +1,6 @@
 
+rm( list = ls() )
+
 ### IN/OUT SETUP #######################################
 
 # path where MICA alignment meta information is stored
@@ -90,7 +92,9 @@ if (samplesNonOverlapping) { break }
 # store samples
 ###########################################
 
-write.csv(pool[samples,],paste(pathOutput,"/samples-len-",sLen,"-set-",setId,".csv",sep=""), quote=FALSE,row.names=FALSE)
+write.csv(pool[samples,],
+	paste(pathOutput,"/samples-len-",sLen,"-set-",setId,".csv",sep=""), 
+	quote=FALSE,row.names=FALSE)
 
 } # for each sample set to generate per length
 
