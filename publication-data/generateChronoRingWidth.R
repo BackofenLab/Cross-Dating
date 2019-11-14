@@ -46,7 +46,7 @@ sampleFiles = list.files( pathSamples , pattern="samples-len-\\d+-set-\\d+\\.csv
 for (f in sampleFiles ) {
 	# generate name of file to create
 	chronoFile = paste(substr(f,1,nchar(f)-4),"chronoRingWidth","csv",sep=".")
-	if (file.exists(chronoFile)){ next } # skip if already existing
+	if (file.exists(paste(pathSamples,chronoFile,sep="/"))){ next } # skip if already existing
 
 	# read samples
 	samples = read.csv(paste(pathSamples,f,sep="/"))
