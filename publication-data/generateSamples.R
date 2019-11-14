@@ -10,10 +10,10 @@ pathMicaMeta = "../input/PCAB_Ostalb_GD-ring_widths"
 pathOutput = "./samples"
 
 sampleTarget = matrix(c(
-10, 50, 5
-,
-15, 33, 7
-,
+#10, 50, 5
+#,
+#15, 33, 7
+#,
 20, 25, 10
 ), byrow=TRUE, ncol=3)
 colnames(sampleTarget) = c("len","num","numSets")
@@ -44,12 +44,14 @@ sLen = sampleTarget[s,"len"];
 # get possible samples for each file
 for( tf in treeFiles ) {
 	# read data
-	d <- cbind(read.csv(paste(pathMicaMeta,tf,sep="/"))$year,1)
+	dCSV <- read.csv(paste(pathMicaMeta,tf,sep="/"))
+	rw <- dCSV$normMeanDistPreAlign
+	d <- cbind( dCSV$year, as.integer(!is.na(rw)))
 	# stop if not enough years
 	if (nrow(d) < sLen) { next; }
 	# identify consecutive years
 	for (r in 2:nrow(d)) {
-		if (d[r,1] == d[r-1,1]+1) { d[r,2] = d[r-1,2]+1 }
+		if ( d[r,2]>0 && d[r,1] == d[r-1,1]+1) { d[r,2] = d[r-1,2]+1 }
 	}
 	# store putative sample ends
 	x <- as.numeric(d[ d[,2] >= sLen ,1])
