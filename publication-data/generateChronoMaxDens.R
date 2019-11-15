@@ -11,6 +11,7 @@ pathSamples = "./samples"
 
 ########################################################
 
+source("../maths/Math.R");
 
 ######################################
 # read and store max density data
@@ -58,7 +59,7 @@ for (f in sampleFiles ) {
 	} # for samples
 
 	# compute chronology information
-	chrono = cbind( as.matrix(cMD[,"year"]), apply(as.matrix(cMD[,2:ncol(cMD)]), 1, mean, na.rm=TRUE) )
+	chrono = cbind( as.matrix(cMD[,"year"]), apply(as.matrix(cMD[,2:ncol(cMD)]), 1, Math.tukeysBiweightRobustMean) )
 	colnames(chrono) = c("year","maxDens")
 
 	write.csv(chrono, paste(pathSamples,chronoFile,sep="/"),

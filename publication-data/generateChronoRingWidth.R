@@ -11,6 +11,7 @@ pathSamples = "./samples"
 
 ########################################################
 
+source("../maths/Math.R");
 
 ######################################
 # read and store ring width data
@@ -58,7 +59,7 @@ for (f in sampleFiles ) {
 	} # for samples
 
 	# compute chronology information
-	chrono = cbind( as.matrix(cRW[,"year"]), apply(as.matrix(cRW[,2:ncol(cRW)]), 1, mean, na.rm=TRUE) )
+	chrono = cbind( as.matrix(cRW[,"year"]), apply(as.matrix(cRW[,2:ncol(cRW)]), 1, Math.tukeysBiweightRobustMean) )
 	colnames(chrono) = c("year","ringWidth")
 
 	write.csv(chrono, paste(pathSamples,chronoFile,sep="/"),
