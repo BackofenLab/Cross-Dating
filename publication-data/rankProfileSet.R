@@ -164,7 +164,7 @@ for (l in c(5)) {
       # get rank for each shift
       cRank = rank(cDist)
       # store rank of sample
-      sRank[s] = cRank[ chrono$year %in% samples$start[s]  ]
+      sRank[s] = cRank[ (yearMin:yearMax) %in% samples$start[s]  ]
     } # for each sample
 
     # store ranks of samples
