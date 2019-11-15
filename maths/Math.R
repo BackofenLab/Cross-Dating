@@ -3,9 +3,15 @@
 #' Supervisors: Dr. Martin Raden, PD Dr. Hans-Peter Kahle
 #' Authors: Alexander Mattheis
 
+if (!exists("MATH_IMPORTED")) {
+  
 compiler::enableJIT(3);  # compile functions (closures), loops and more
 
 MATH_IMPORTED <- TRUE;  # to avoid a reimport by the "Main.R"-class after sourcing this file
+
+if (!exists("Math.EPSILON")) {
+  Maths.EPSILON <- 0.0001;
+}
 
 #' Contains mathematical functions for common operations like interpolation, 
 #' derivates, distance and normalization functions.
@@ -201,11 +207,12 @@ Math.computePureProfiles <- function(profiles) {
 #' @param x {vector} the values 
 #' for which the value has to be computed
 #' @param c {numerical} tuning parameter
-#'
 #' @return {numerical} the function value
-#' @source Statistical Algorithms Description Document, 2002, Affymetrix
+#' @source Statistical Algorithms Descrip
 #' at page 22
 Math.tukeysBiweightRobustMean <- function(x, c = 9) {
+  # remove NA entries
+  x <- x[ ! is.na(x) ];
   median <- median(x);
   mad <- mad(x, constant = 1);  # median(c * |x_i - median(x)|), hint: default method multiplies with constant c = 1.4826
   
@@ -325,3 +332,5 @@ Math.__detrendBetweenNeighbouredValues <- function(x) {
   
   return(log(xi / xPlusi));  # natural log
 }
+
+} # end of definitions
