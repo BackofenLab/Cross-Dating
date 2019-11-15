@@ -59,11 +59,12 @@ for( tf in treeFiles ) {
 
 
 ######################################
-# get ranks in chronology for each sample set
-######################################
-
-# computes the distances for each putative start year of the sample within the chronology
+#' computes the distances for each putative start year of the sample within the chronology
+#' @param chronoMD the max density chronology
+#' @param sampleMD the sample's max densities
+#' @return the distance for each start year
 getDistances <- function ( chronoMD, sampleMD ) {
+######################################
   # initialize distances
   n = length(chronoMD)
   d = rep(NA, n)
@@ -75,7 +76,11 @@ getDistances <- function ( chronoMD, sampleMD ) {
 }
 
 
-for (l in c(5)) {
+######################################
+# get ranks in chronology for each sample set
+######################################
+
+for (l in c(5,10,15,20)) {
   
   
   # get all sample sets
@@ -111,15 +116,16 @@ for (l in c(5)) {
  
   
   #sum(allranks==1)/sum(!is.na(allranks))
-  print(paste("length",l,
-              "exact%",
+  print(paste("&",l,
+              "&",
               round(mean(apply(allranks==1,2,sum)) / nrow(allranks)*100,digits=1),
-              "medianRank",
+              "&",
               round(mean(apply(allranks,2,median)),digits=1),
-              "meanRank",
+              "&",
               round(mean(apply(allranks,2,mean)),digits=1),
-              "varRank",
-              round(mean(apply(allranks,2,var),digits=1))
+              "&",
+              round(mean(apply(allranks,2,var),digits=1)),
+              "\\"
   ))
   #summary(allranks)
   

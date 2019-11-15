@@ -29,7 +29,7 @@ pathSamples = "./samples"
 # if(!exists("INTERFACE_IMPORTED")) source("../system/Interface.R");
 # if(!exists("INTERPRETER_IMPORTED")) source("../system/Interpreter.R");
 # if(!exists("LOADER_IMPORTED")) source("../system/Loader.R");
-if(!exists("MATH_IMPORTED")) source("../maths/Math.R");
+source("../maths/Math.R");
 # if(!exists("PLOTTER_IMPORTED")) source("../visuals/Plotter.R");
 # if(!exists("PRESENTATION_IMPORTED")) source("../experiments/Presentation.R");
 # if(!exists("STORER_IMPORTED")) source("../system/Storer.R");
@@ -58,13 +58,14 @@ for( tf in treeFiles ) {
 } # for all treeFiles
 
 
-######################################
-# get ranks in chronology for each sample set
-######################################
 
-
-# computes the distances for each putative start year of the sample within the chronology
+######################################
+#' computes the distances for each putative start year of the sample within the chronology
+#' @param chronoRW the ring width chronology
+#' @param sampleRW the sample's ring widths
+#' @return the distance for each start year
 getDistances <- function ( chronoRW, sampleRW ) {
+######################################
   # initialize distances
   n = length(chronoRW)
   d = rep(NA, n)
@@ -75,6 +76,10 @@ getDistances <- function ( chronoRW, sampleRW ) {
   return( d )
 }
 
+
+######################################
+# get ranks in chronology for each sample set
+######################################
 
 for (l in c(5,10,15,20)) {
   
@@ -114,15 +119,16 @@ for (l in c(5,10,15,20)) {
   } # for each sampleFile
   
   #sum(allranks==1)/sum(!is.na(allranks))
-  print(paste("length",l,
-              "exact%",
+  print(paste("&",l,
+              "&",
               round(mean(apply(allranks==1,2,sum)) / nrow(allranks)*100,digits=1),
-              "medianRank",
+              "&",
               round(mean(apply(allranks,2,median)),digits=1),
-              "meanRank",
+              "&",
               round(mean(apply(allranks,2,mean)),digits=1),
-              "varRank",
-              round(mean(apply(allranks,2,var),digits=1))
+              "&",
+              round(mean(apply(allranks,2,var),digits=1)),
+              "\\"
   ))
   #summary(allranks)
   
