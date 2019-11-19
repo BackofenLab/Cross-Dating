@@ -119,7 +119,8 @@ for (l in c(5,10,15,20)) {
   } # for each sampleFile
   
   #sum(allranks==1)/sum(!is.na(allranks))
-  print(paste("&",l,
+  print(paste("ring width",
+              "&",l,
               "&",
               round(mean(apply(allranks==1,2,sum)) / nrow(allranks)*100,digits=1),
               "&",

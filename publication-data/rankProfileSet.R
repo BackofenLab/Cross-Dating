@@ -175,15 +175,17 @@ for (l in c(5,10,15,20)) {
 
   #sum(allranks==1)/sum(!is.na(allranks))
   sink("outfile.txt",append=TRUE)
-  cat(paste("length",l,
-              "exact%",
+  print(paste("profile set",
+              "&",l,
+              "&",
               round(mean(apply(allranks==1,2,sum)) / nrow(allranks)*100,digits=1),
-              "medianRank",
+              "&",
               round(mean(apply(allranks,2,median)),digits=1),
-              "meanRank",
+              "&",
               round(mean(apply(allranks,2,mean)),digits=1),
-              "varRank",
-              round(mean(apply(allranks,2,var),digits=1))
+              "&",
+              round(mean(apply(allranks,2,var),digits=1)),
+              "\\"
   ))
   sink()
   #summary(allranks)
