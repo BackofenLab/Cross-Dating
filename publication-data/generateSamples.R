@@ -10,11 +10,13 @@ pathMicaMeta = "../input/PCAB_Ostalb_GD-ring_widths"
 pathOutput = "./samples"
 
 sampleTarget = matrix(c(
-#10, 50, 5
-#,
-#15, 33, 7
-#,
-20, 25, 10
+# 10, 50, 5
+# ,
+# 15, 33, 7
+# ,
+# 20, 25, 10
+# ,
+  25, 21, 12
 ), byrow=TRUE, ncol=3)
 colnames(sampleTarget) = c("len","num","numSets")
 
