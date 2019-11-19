@@ -72,7 +72,7 @@ for (f in sampleFiles ) {
 ######################################
 
 op <- par(ask=TRUE)
-for ( l in c(5,10,15,20) ) {
+for ( l in c(5,10,15,20,25) ) {
 	d = c();
 	for ( f in list.files( pathSamples , pattern=paste("samples-len-",l,"-set-\\d+\\.chronoMaxDens.csv",sep="") ) ) {
 		d = cbind( d, read.csv(paste(pathSamples,f,sep="/"))$maxDens )

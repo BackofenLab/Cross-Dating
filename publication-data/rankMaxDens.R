@@ -80,7 +80,7 @@ getDistances <- function ( chronoMD, sampleMD ) {
 # get ranks in chronology for each sample set
 ######################################
 
-for (l in c(5,10,15,20)) {
+for (l in c(25)){#,5,10,15,20)) {
   
   
   # get all sample sets
