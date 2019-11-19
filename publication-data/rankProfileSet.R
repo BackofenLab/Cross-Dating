@@ -138,7 +138,7 @@ getSampleChronology <- function( chronoD, samples ) {
 # get ranks in chronology for each sample set
 ######################################
 
-for (l in c(5)) {
+for (l in c(5,10,15,20)) {
 
 
   # get all sample sets
@@ -147,7 +147,7 @@ for (l in c(5)) {
   allranks = c()
 
   # generate chronology for the set if not already present
-  for (f in sampleFiles[1:1]) {
+  for (f in sampleFiles) {
     
     # read samples
     samples = as.data.frame(read.csv( paste(pathSamples,f,sep="/") ))
@@ -174,7 +174,8 @@ for (l in c(5)) {
 
 
   #sum(allranks==1)/sum(!is.na(allranks))
-  print(paste("length",l,
+  sink("outfile.txt",append=TRUE)
+  cat(paste("length",l,
               "exact%",
               round(mean(apply(allranks==1,2,sum)) / nrow(allranks)*100,digits=1),
               "medianRank",
@@ -184,6 +185,7 @@ for (l in c(5)) {
               "varRank",
               round(mean(apply(allranks,2,var),digits=1))
   ))
+  sink()
   #summary(allranks)
 
 } # for sample length
