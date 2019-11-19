@@ -38,7 +38,7 @@ treeFiles = list.files( pathMaxDens , pattern=".*\\.csv")
 # get available max density data from each file
 for( tf in treeFiles ) {
 	
-	d = read.csv(paste(pathMaxDens ,tf,sep="/"))
+	d = read.csv(paste(pathMaxDens ,tf,sep=.Platform$file.sep))
 	
 	MD[ MD[,"year"] %in% d$year, ncol(MD)+1 ] = d$density
 	colnames(MD)[ncol(MD)] = substr( tf, 1, nchar(tf)-4)
@@ -63,7 +63,7 @@ treeFiles = list.files( pathProfiles , pattern=".*\\.csv")
 # get available max density data from each file
 for( tf in treeFiles ) {
   
-  d = read.csv(paste(pathProfiles ,tf,sep="/"))
+  d = read.csv(paste(pathProfiles ,tf,sep=.Platform$file.sep))
   
   Dcol = rep(NA, nrow(D))
   
@@ -117,8 +117,9 @@ getDistanceOfProfiles <- function( p1, p2 )
 #' computes the distances for each putative start year of the sample within the chronology
 #' @param chronoD the profile information for each tree
 #' @param sampleD the profile information of the sample
+#' @param startYears either NA or a boolean vector of length nrow/rowsPerYear that marks whether the year is a valid start year
 #' @return the respective distance for each start year = sum(min profileDist per year)
-getDistances <- function ( chronoD, sampleD ) 
+getDistances <- function ( chronoD, sampleD, startYears=NA ) 
 ######################################
 {
   # initialize distances
@@ -126,6 +127,7 @@ getDistances <- function ( chronoD, sampleD )
   d = rep(NA, n)
   nS = length(sampleD)/rowsPerYear
   for ( i in 1:(n-nS+1) )  {
+    if ( !is.na(startYears) && !startYears[i] ) { next } # skip non-valid start years
     # overall distance = sum of minimal distance per year
     dist = 0;
     # for all years relative to current start year i
@@ -200,10 +202,11 @@ for (l in c(5)){#},10,15,20)) {
     
     # read MD chrono data
     chronoFile = paste(substr(f,1,nchar(f)-4),"chronoMaxDens","csv",sep=".")
-    chronoMD = as.data.frame(read.csv( paste(pathSamples,chronoFile,sep="/"), header=T ))
+    if (!file.exists(paste(pathSamples,chronoFile,sep=.Platform$file.sep))) { stop(paste("chronofile",chronoFile,"not found")) }
+    chronoMD = as.data.frame(read.csv( paste(pathSamples,chronoFile,sep=.Platform$file.sep), header=T ))
     
     # read samples
-    samples = as.data.frame(read.csv( paste(pathSamples,f,sep="/") ))
+    samples = as.data.frame(read.csv( paste(pathSamples,f,sep=.Platform$file.sep) ))
     # generate sample chronology
     chrono = getSampleChronology( D, samples )
     
@@ -228,9 +231,9 @@ for (l in c(5)){#},10,15,20)) {
       # get data of sample
       sD = getSampleProfile( D, samples[s,] )
       # compute dist for each shift in chronology
-      cDist = getDistances( chrono[chrono$year %in% (yearMin:yearMax)[topRanked], ], sD )
+      cDist = getDistances( chrono, sD, startYears=topRanked )
       # get rank for each shift
-      cRank[topRanked] = rank(cDist)
+      cRank[topRanked] = rank(cDist)[topRanked]
       # store rank of sample
       sRank[s] = cRank[ (yearMin:yearMax) %in% samples$start[s]  ]
     } # for each sample
