@@ -4,11 +4,11 @@ d = as.data.frame(matrix(
 dimnames= list( NULL,
 c("length","ring width","max. density","profile consensus","profile set","two step (MD+PS)")),
 c(
-  5, 6.6, 15.8, 19.4, 32.2,NA
+  5, 6.6, 15.8, 19.4, 32.2, 42.8
   ,
-  10, 28, 44.8, NA, 58, NA
+  10, 28, 44.8, 33.6, 58, 69.6
   ,
-  15, 55.4, 74.2, NA, 74, NA
+  15, 55.4, 74.2, 57.6, 74, NA
   ,
   20, 67.6, 84.8, NA, 82.4, NA
   ,
