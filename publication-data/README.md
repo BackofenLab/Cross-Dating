@@ -16,14 +16,6 @@ Rscript --slave generateChronoRingWidth.R
 Rscript --slave generateChronoMaxDens.R
 ```
 
-for consensus-based ranking, we first have to compute MICA alignments per year
-(and sample set to exclude the samples). the resulting consensus profiles have 
-to be interpolated to 100 data points per year.
- 
-```
-TODO Rscript --slave generateChronoMICA.R
-Rscript --slave generateChronoConsensus.R
-```
 
 
 # compute cross-dating performance
