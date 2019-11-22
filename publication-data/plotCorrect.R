@@ -14,8 +14,12 @@ c(
   ,
   25, 75.4, 86.5, NA, 82.5, 87.3
 ),ncol=6, byrow=TRUE))
-distCols = !( colnames(d) %in% "length")
 
+# ignore consensus
+d = d[, !(colnames(d) %in% "profile consensus")]
+
+
+distCols = !( colnames(d) %in% "length")
 
 par(family="serif",cex=1.1)
 matplot(d$length, d[,distCols], lwd=2, type="b", ylim=c(0,100),pch=as.character(1:sum(distCols)),
